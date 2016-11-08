@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar color='primary'>
+    <ion-title><ion-icon name="medkit"></ion-icon>  Incident Details: {{incidentDetail.IncidentID}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+
+  <ion-item>
+    <ion-label stacked>Casualty</ion-label>
+    <ion-input type="text" [(ngModel)]="incidentDetail.casualty" disabled="true"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Incident Date</ion-label>
+    <ion-input type="text" [(ngModel)]="incidentDetail.incidentDate" disabled="true"></ion-input>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label stacked>Incident Class</ion-label>
+    <ion-input type="text" [(ngModel)]="incidentDetail.incidentClass" disabled="true"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Status</ion-label>
+    <ion-icon name="medkit" color="{{statusColour()}}" item-right></ion-icon>
+    <ion-input type="text" [(ngModel)]="incidentDetail.status" disabled="true"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Region</ion-label>
+    <ion-input type="text" [(ngModel)]="incidentDetail.Region" disabled="true"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Incident Details</ion-label>
+    <ion-textarea [(ngModel)]="incidentDetail.problemReport" disabled="true"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Submitted by</ion-label>
+    <ion-input type="text" [(ngModel)]="incidentDetail.nameOfSubmitter" disabled="true"></ion-input>
+  </ion-item>
+
+
+</ion-list>
+</ion-content>

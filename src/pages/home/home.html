@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-navbar color='primary'>
+    <ion-title><ion-icon name="heart"></ion-icon>  DIO Health & Safety Incidents</ion-title>
+  </ion-navbar>
+  <ion-toolbar>
+        <ion-segment secondary [(ngModel)]="submittedFilter" (ionChange)="filterSubmitted()">
+            <ion-segment-button value="approvals">
+                Approvals
+            </ion-segment-button>
+            <ion-segment-button value="all">
+                All
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-refresher (ionRefresh)="refreshAll($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list [virtualScroll]="incidents" [approxItemHeight]="'132px'">
+
+        <ion-item-sliding *virtualItem="let incident">
+
+            <ion-item (click)="itemTapped($event, incident)">
+                <ion-row>
+                    <ion-col>
+                        <h2 color="primary">{{incident.IncidentID}} - {{incident.casualty}} <ion-icon name="checkbox" color="danger" *ngIf="incident.status === 'Pending'"></ion-icon></h2>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col width-20>
+                        <h4>Region</h4>
+                    </ion-col>
+                    <ion-col width-20>
+                        <h4>Date</h4>
+                    </ion-col>
+                    <ion-col width-20>
+                        <h4>Class</h4>
+                    </ion-col>
+                    <ion-col width-20>
+                        <h4>Status</h4>
+                    </ion-col>
+                    <ion-col width-20>
+                        <h4>Reported</h4>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col width-20>
+                        <h4>{{incident.Region}}</h4>
+                    </ion-col>
+                    <ion-col width-20>
+                        <h4>{{incident.incidentDate}}</h4>
+                    </ion-col>
+                    <ion-col width-20>
+                        <h4>{{incident.incidentClass}}</h4>
+                    </ion-col>
+                    <ion-col width-20>
+                        <h4>{{incident.status}}</h4>
+                    </ion-col>
+                    <ion-col width-20>
+                        <h4>{{incident.createdDateTime}}</h4>
+                    </ion-col>
+                </ion-row>
+            </ion-item>
+
+            <ion-item-options side="right">
+                <button ion-button color="danger" (click)="approve(incident)" *ngIf="incident.status === 'Submitted'">
+                    <ion-icon name="checkbox"></ion-icon>
+                    Approve
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
