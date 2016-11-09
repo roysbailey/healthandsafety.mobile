@@ -42,7 +42,7 @@ ionViewDidLoad() {
   filterSubmitted(){
     if(this.submittedFilter === 'all'){
       this.incidents = _.chain(this.allIncidents)
-        .orderBy(['createdDateTime'], ['desc'])
+        .orderBy(['Region', 'createdDateTime'], ['desc','desc'])
         .map(i => {
           return this.dtoToVM(i);
         })
@@ -50,7 +50,7 @@ ionViewDidLoad() {
     } else {
       this.incidents = _.chain(this.allIncidents)
         .filter(i => i.status === 'Submitted' || i.status === 'Pending')
-        .orderBy(['createdDateTime'], ['desc'])
+        .orderBy(['Region', 'createdDateTime'], ['desc','desc'])
         .map(i => {
           return this.dtoToVM(i);
         })
@@ -77,6 +77,14 @@ ionViewDidLoad() {
     this.navCtrl.push(IncidentDetailPage, incident); 
   }
 
+  getHeader(record, recordIndex, records) {
+    console.log('Record: ' + record);
+    if (recordIndex === 0 || record.Region !== records[recordIndex-1].Region) {
+      return longRegionText(record.Region);
+    }
+    return null;  
+  }  
+
   private dtoToVM(incidentDTO){
     let vm = {
       IncidentID: incidentDTO.IncidentID,
@@ -93,18 +101,18 @@ ionViewDidLoad() {
     return vm;
   }
 
-  private shortRegionText(longRegionText){
-    let shortText = longRegionText;
-    switch(longRegionText.toLowerCase()) {
+  private shortRegionText(regionText){
+    let text = regionText;
+    switch(regionText.toLowerCase()) {
       case 'rest of world':
-        shortText = 'ROW';
+        text = 'ROW';
         break;
       case 'germany':
-        shortText = 'GER';
+        text = 'GER';
         break;
     }
 
-    return shortText;
+    return text;
   }
 
   private shortClassText(longClassText){
@@ -128,3 +136,23 @@ ionViewDidLoad() {
   }  
   
 }
+
+  function longRegionText(regionText){
+    let text = regionText;
+    switch(regionText.toUpperCase()) {
+      case 'ROW':
+        text = 'Rest of World';
+        break;
+      case 'GER':
+        text = 'Germany';
+        break;
+      case 'UK':
+        text = 'United Kingdom';
+        break;
+      case 'PJOBS':
+        text = 'Cyprus, Falklands, Gibraltar, Ascension Islands';
+        break;
+    }
+
+    return text;
+  }
