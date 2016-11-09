@@ -134,25 +134,26 @@ ionViewDidLoad() {
       var d = new Date(inputFormat);
       return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
   }  
-  
+
+
 }
 
   function longRegionText(regionText){
-    let text = regionText;
-    switch(regionText.toUpperCase()) {
-      case 'ROW':
-        text = 'Rest of World';
-        break;
-      case 'GER':
-        text = 'Germany';
-        break;
-      case 'UK':
-        text = 'United Kingdom';
-        break;
-      case 'PJOBS':
-        text = 'Cyprus, Falklands, Gibraltar, Ascension Islands';
-        break;
-    }
+      let text = regionText;
+      switch(regionText.toUpperCase()) {
+        case 'ROW':
+          text = 'Rest of World';
+          break;
+        case 'GER':
+          text = 'Germany';
+          break;
+        case 'UK':
+          text = 'United Kingdom';
+          break;
+        case 'PJOBS':
+          text = 'Cyprus, Falklands, Gibraltar, Ascension Islands';
+          break;
+      }
 
-    return text;
-  }
+      return text;
+    }
